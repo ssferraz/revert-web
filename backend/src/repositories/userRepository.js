@@ -1,9 +1,8 @@
-const mongoose = require('mongoose');
-const User = mongoose.model('User');
+const { User: UserModel, User } = require("../models/User");
 
 const userRepository = {
     create: async (user) => {
-        const response = await UserModel.create(user);
+        const response = await UserModel.create(user).select('-password -__v');
         return response;
     },
     getAll: async () => {
@@ -11,75 +10,28 @@ const userRepository = {
         return users;
     },
     get: async (id) => {
-        const user = await UserModel.findById(id);
+        const user = await UserModel.findById(id).select('-password -__v');
         return user;
     },
     delete: async (id) => {
-        const deletedUser = await UserModel.findByIdAndDelete(id);
+        const deletedUser = await UserModel.findByIdAndDelete(id).select('-password -__v');
         return deletedUser;
     },
     deleteAll: async () => {
         await UserModel.deleteMany({});
     },
     update: async (id, user) => {
-        const updatedUser = await UserModel.findByIdAndUpdate(id, user);
+        const updatedUser = await UserModel.findByIdAndUpdate(id, user).select('-password -__v');
         return updatedUser;
     },
-    authenticate: async (user) => {
+    authenticate: async (email, password) => {
         const user = await User.findOne({
-            email: user.email,
-            password: user.password
-        });
+            email: email,
+            password: password
+        }).select('-password -__v');
         return user;
     },
     
 }
 
 module.exports = userRepository;
-
-exports.get = async() => {
-    const res = await User.find(
-        {}, '_id nickname city protection_code ');
-    return res;
-}
-
-exports.getById = async(id) => {
-    const res = await User.findById(id, '_id nickname city protection_code ');
-    return res;
-}
-exports.getByNickname = async(nickname)=>{
-    const res = await User.findOne({
-        nickname:nickname
-    }, '_id nickname protection_code indexQuestion answerQuestion');
-    return res;
-
-}
-
-exports.create = async(data) => {
-    var user = new User(data);
-    await user.save();
-
-}
-
-exports.update = async(id, data) => {
-    await User.findByIdAndUpdate(id,{
-        $set: {
-            nickname: data.nickname,
-            password: data.password,
-            protection_code: data.protection_code
-        }
-    });
-}
-exports.delete = async(id) => {
-    await User.findByIdAndRemove(id);
-}
-
-exports.authenticate = async(data) => {
-    const res = await User.findOne(
-        {
-            nickname: data.nickname,
-            password: data.password 
-        }
-    );
-    return res;
-}
