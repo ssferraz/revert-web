@@ -2,7 +2,37 @@ const mongoose = require('mongoose');
 const User = mongoose.model('User');
 
 const userRepository = {
-
+    create: async (user) => {
+        const response = await UserModel.create(user);
+        return response;
+    },
+    getAll: async () => {
+        const users = await UserModel.find().select('-password -__v');
+        return users;
+    },
+    get: async (id) => {
+        const user = await UserModel.findById(id);
+        return user;
+    },
+    delete: async (id) => {
+        const deletedUser = await UserModel.findByIdAndDelete(id);
+        return deletedUser;
+    },
+    deleteAll: async () => {
+        await UserModel.deleteMany({});
+    },
+    update: async (id, user) => {
+        const updatedUser = await UserModel.findByIdAndUpdate(id, user);
+        return updatedUser;
+    },
+    authenticate: async (user) => {
+        const user = await User.findOne({
+            email: user.email,
+            password: user.password
+        });
+        return user;
+    },
+    
 }
 
 module.exports = userRepository;
