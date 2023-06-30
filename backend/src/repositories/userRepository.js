@@ -2,7 +2,9 @@ const { User: UserModel, User } = require("../models/User");
 
 const userRepository = {
     create: async (user) => {
-        const response = await UserModel.create(user).select('-password -__v');
+        const response = (await UserModel.create(user)).toObject();
+        delete response.password;
+        delete response.__v;
         return response;
     },
     getAll: async () => {
@@ -16,9 +18,6 @@ const userRepository = {
     delete: async (id) => {
         const deletedUser = await UserModel.findByIdAndDelete(id).select('-password -__v');
         return deletedUser;
-    },
-    deleteAll: async () => {
-        await UserModel.deleteMany({});
     },
     update: async (id, user) => {
         const updatedUser = await UserModel.findByIdAndUpdate(id, user).select('-password -__v');

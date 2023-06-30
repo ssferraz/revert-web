@@ -44,10 +44,9 @@ const userController = {
             return res.status(500).json({ message: "Falha ao processar sua requisição." });
         }
     },
-    delete: async (req, res) => {
+    delete: async (userId, res) => {
         try {
-
-            const id = req.params.id;
+            const id = userId;
             const user = await userRepository.get(id);
 
             if (!user) {
@@ -63,14 +62,6 @@ const userController = {
             console.log(error);
             return res.status(500).json({ message: "Falha ao processar sua requisição." });
         }
-    },
-    deleteAll: async (_, res) =>{
-        try {
-            await userRepository.deleteAll();
-            return res.status(200).json({ message: 'Todos os usuários excluídos com sucesso.' });
-          } catch (error) {
-            return res.status(500).json({ message: 'Falha ao processar sua requisição.'});
-          }
     },
     update: async (userId, req, res) => {
         try {
