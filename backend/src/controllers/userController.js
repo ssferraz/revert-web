@@ -1,4 +1,3 @@
-//const { User: UserModel, User } = require("../models/User");
 const userRepository = require("../repositories/userRepository");
 
 const userController = {
