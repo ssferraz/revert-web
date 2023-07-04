@@ -11,8 +11,15 @@ import {
   Stack,
   Unstable_Grid2 as Grid
 } from '@mui/material';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
 
 export const AccountProfileDetails = () => {
+
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false);
+  };
 
   const [values, setValues] = useState({
     name: 'Anika',
@@ -34,6 +41,7 @@ export const AccountProfileDetails = () => {
   const handleSubmit = useCallback(
     (event) => {
       event.preventDefault();
+      setSnackbarOpen(true);
     },
     []
   );
@@ -115,11 +123,24 @@ export const AccountProfileDetails = () => {
         </CardContent>
         <Divider />
         <CardActions sx={{ justifyContent: 'flex-end' }}>
-          <Button variant="contained">
+          <Button variant="contained" type="submit">
             Salvar alterações
           </Button>
         </CardActions>
       </Card>
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={3000}
+        onClose={handleSnackbarClose}
+      >
+        <MuiAlert
+          severity="success"
+          onClose={handleSnackbarClose}
+          sx={{ m: 2 }}
+        >
+          Usuário atualizado com sucesso!
+        </MuiAlert>
+      </Snackbar>
     </form>
   );
 };

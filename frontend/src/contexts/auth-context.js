@@ -74,30 +74,21 @@ export const AuthProvider = (props) => {
     initialized.current = true;
 
     let isAuthenticated = false;
+    let user = null;
 
     try {
       isAuthenticated = window.sessionStorage.getItem('authenticated') === 'true';
+      if (isAuthenticated) {
+        user = JSON.parse(window.sessionStorage.getItem('user'));      
+      } 
     } catch (err) {
       console.error(err);
     }
 
-    if (isAuthenticated) {
-      const user = {
-        id: '5e86809283e28b96d2d38537',
-        avatar: '/assets/avatars/avatar-anika-visser.png',
-        name: 'Anika Visser',
-        email: 'anika.visser@devias.io'
-      };
-
-      dispatch({
-        type: HANDLERS.INITIALIZE,
-        payload: user
-      });
-    } else {
-      dispatch({
-        type: HANDLERS.INITIALIZE
-      });
-    }
+    dispatch({
+      type: HANDLERS.INITIALIZE,
+      payload: user
+    });
   };
 
   useEffect(
@@ -152,6 +143,7 @@ export const AuthProvider = (props) => {
   
         try {
           window.sessionStorage.setItem('authenticated', 'true');
+          window.sessionStorage.setItem('user', JSON.stringify(user));
         } catch (err) {
           console.error(err);
         }

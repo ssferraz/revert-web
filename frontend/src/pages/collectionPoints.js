@@ -1,6 +1,4 @@
 import Head from 'next/head';
-import ArrowUpOnSquareIcon from '@heroicons/react/24/solid/ArrowUpOnSquareIcon';
-import ArrowDownOnSquareIcon from '@heroicons/react/24/solid/ArrowDownOnSquareIcon';
 import PlusIcon from '@heroicons/react/24/solid/PlusIcon';
 import {
   Box,
@@ -14,7 +12,6 @@ import {
 } from '@mui/material';
 import { Layout as DashboardLayout } from 'src/layouts/dashboard/layout';
 import { CompanyCard } from 'src/sections/companies/company-card';
-import { CompaniesSearch } from 'src/sections/companies/companies-search';
 
 const companies = [
   {
@@ -112,7 +109,7 @@ const Page = () => (
               </Button>
             </div>
           </Stack>
-          <CompaniesSearch />
+          
           <Grid
             container
             spacing={3}

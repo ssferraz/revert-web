@@ -27,17 +27,17 @@ const Page = () => {
     validationSchema: Yup.object({
       email: Yup
         .string()
-        .email('Must be a valid email')
+        .email('Deve ser um e-mail válido')
         .max(255)
-        .required('Email is required'),
+        .required('O e-mail é obrigatório'),
       name: Yup
         .string()
         .max(255)
-        .required('Name is required'),
+        .required('O nome é obrigatório'),
       password: Yup
         .string()
         .max(255)
-        .required('Password is required')
+        .required('A senha é obrigatória')
     }),
     onSubmit: async (values, helpers) => {
       try {
