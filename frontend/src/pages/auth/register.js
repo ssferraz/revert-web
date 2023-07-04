@@ -6,10 +6,17 @@ import * as Yup from 'yup';
 import { Box, Button, Link, Stack, TextField, Typography } from '@mui/material';
 import { useAuth } from 'src/hooks/use-auth';
 import { Layout as AuthLayout } from 'src/layouts/auth/layout';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+import React, { useState } from 'react';
 
 const Page = () => {
   const router = useRouter();
   const auth = useAuth();
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false);
+  };
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -34,8 +41,11 @@ const Page = () => {
     }),
     onSubmit: async (values, helpers) => {
       try {
-        await auth.signUp(values.email, values.name, values.password);
-        router.push('/');
+        await auth.signUp(values.name, values.email, values.password);
+        setSnackbarOpen(true);
+        setTimeout(() => {
+          router.push('/');
+        }, 2000);
       } catch (err) {
         helpers.setStatus({ success: false });
         helpers.setErrors({ submit: err.message });
@@ -48,7 +58,7 @@ const Page = () => {
     <>
       <Head>
         <title>
-          Register | Revert
+          Cadastro | Revert
         </title>
       </Head>
       <Box
@@ -73,13 +83,13 @@ const Page = () => {
               sx={{ mb: 3 }}
             >
               <Typography variant="h4">
-                Register
+                Cadastro
               </Typography>
               <Typography
                 color="text.secondary"
                 variant="body2"
               >
-                Already have an account?
+                Já tem uma conta? 
                 &nbsp;
                 <Link
                   component={NextLink}
@@ -87,7 +97,7 @@ const Page = () => {
                   underline="hover"
                   variant="subtitle2"
                 >
-                  Log in
+                  Faça login
                 </Link>
               </Typography>
             </Stack>
@@ -100,7 +110,7 @@ const Page = () => {
                   error={!!(formik.touched.name && formik.errors.name)}
                   fullWidth
                   helperText={formik.touched.name && formik.errors.name}
-                  label="Name"
+                  label="Nome"
                   name="name"
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
@@ -110,7 +120,7 @@ const Page = () => {
                   error={!!(formik.touched.email && formik.errors.email)}
                   fullWidth
                   helperText={formik.touched.email && formik.errors.email}
-                  label="Email Address"
+                  label="Email"
                   name="email"
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
@@ -121,7 +131,7 @@ const Page = () => {
                   error={!!(formik.touched.password && formik.errors.password)}
                   fullWidth
                   helperText={formik.touched.password && formik.errors.password}
-                  label="Password"
+                  label="Senha"
                   name="password"
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
@@ -147,6 +157,20 @@ const Page = () => {
               >
                 Continue
               </Button>
+              <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={3000}
+        onClose={handleSnackbarClose}
+      >
+        <MuiAlert
+          severity="success"
+          onClose={handleSnackbarClose}
+          sx={{ m: 2 }}
+        >
+          Usuário criado com sucesso!
+        </MuiAlert>
+      </Snackbar>
+    
             </form>
           </div>
         </Box>

@@ -8,36 +8,17 @@ import {
   CardHeader,
   Divider,
   TextField,
+  Stack,
   Unstable_Grid2 as Grid
 } from '@mui/material';
 
-const states = [
-  {
-    value: 'alabama',
-    label: 'Alabama'
-  },
-  {
-    value: 'new-york',
-    label: 'New York'
-  },
-  {
-    value: 'san-francisco',
-    label: 'San Francisco'
-  },
-  {
-    value: 'los-angeles',
-    label: 'Los Angeles'
-  }
-];
-
 export const AccountProfileDetails = () => {
+
   const [values, setValues] = useState({
-    firstName: 'Anika',
-    lastName: 'Visser',
+    name: 'Anika',
     email: 'demo@devias.io',
-    phone: '',
-    state: 'los-angeles',
-    country: 'USA'
+    password: '',
+    confirm: ''
   });
 
   const handleChange = useCallback(
@@ -65,8 +46,8 @@ export const AccountProfileDetails = () => {
     >
       <Card>
         <CardHeader
-          subheader="The information can be edited"
-          title="Profile"
+          subheader="As informações podem ser editadas"
+          title="Dados Pessoais"
         />
         <CardContent sx={{ pt: 0 }}>
           <Box sx={{ m: -1.5 }}>
@@ -80,97 +61,62 @@ export const AccountProfileDetails = () => {
               >
                 <TextField
                   fullWidth
-                  helperText="Please specify the first name"
-                  label="First name"
-                  name="firstName"
+                  label="Nome"
+                  name="name"
                   onChange={handleChange}
                   required
-                  value={values.firstName}
+                  value={values.name}
                 />
-              </Grid>
+              </Grid>   
               <Grid
                 xs={12}
                 md={6}
               >
                 <TextField
                   fullWidth
-                  label="Last name"
-                  name="lastName"
-                  onChange={handleChange}
-                  required
-                  value={values.lastName}
-                />
-              </Grid>
-              <Grid
-                xs={12}
-                md={6}
-              >
-                <TextField
-                  fullWidth
-                  label="Email Address"
+                  label="Email"
                   name="email"
                   onChange={handleChange}
                   required
                   value={values.email}
                 />
               </Grid>
-              <Grid
-                xs={12}
-                md={6}
-              >
-                <TextField
-                  fullWidth
-                  label="Phone Number"
-                  name="phone"
-                  onChange={handleChange}
-                  type="number"
-                  value={values.phone}
-                />
-              </Grid>
-              <Grid
-                xs={12}
-                md={6}
-              >
-                <TextField
-                  fullWidth
-                  label="Country"
-                  name="country"
-                  onChange={handleChange}
-                  required
-                  value={values.country}
-                />
-              </Grid>
-              <Grid
-                xs={12}
-                md={6}
-              >
-                <TextField
-                  fullWidth
-                  label="Select State"
-                  name="state"
-                  onChange={handleChange}
-                  required
-                  select
-                  SelectProps={{ native: true }}
-                  value={values.state}
-                >
-                  {states.map((option) => (
-                    <option
-                      key={option.value}
-                      value={option.value}
-                    >
-                      {option.label}
-                    </option>
-                  ))}
-                </TextField>
-              </Grid>
+              
             </Grid>
           </Box>
         </CardContent>
         <Divider />
+        <CardHeader
+          subheader="Atualizar senha"
+          title="Senha"
+        />
+        <CardContent sx={{ pt: 0 }}>
+          <Stack
+            spacing={3}
+            sx={{ maxWidth: 800 }}
+          >
+            <TextField
+              fullWidth
+              label="Senha"
+              name="password"
+              onChange={handleChange}
+              type="password"
+              value={values.password}
+            />
+            <TextField
+              fullWidth
+              label="Confirmação de senha"
+              name="confirm"
+              onChange={handleChange}
+              type="password"
+              value={values.confirm}
+            />
+          </Stack>
+        </CardContent>
+        <Divider />
         <CardActions sx={{ justifyContent: 'flex-end' }}>
           <Button variant="contained">
-            Save details
+            Salvar alterações
           </Button>
         </CardActions>
       </Card>

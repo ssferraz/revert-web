@@ -79,7 +79,6 @@ export const Layout = (props) => {
               }}
               variant="h1"
             >
-              Welcome to{' '}
               <Box
                 component="a"
                 sx={{ color: '#15B79E' }}
@@ -93,11 +92,11 @@ export const Layout = (props) => {
               sx={{ mb: 3 }}
               variant="subtitle1"
             >
-              A professional kit that comes with ready-to-use MUI components.
+              Software para otimização da logística reversa de pós-consumo
             </Typography>
             <img
               alt=""
-              src="/assets/auth-illustration.svg"
+              src="/assets/logos/revert-logo.png"
             />
           </Box>
         </Grid>

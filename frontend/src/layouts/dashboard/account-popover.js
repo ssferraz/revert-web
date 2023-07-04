@@ -36,7 +36,7 @@ export const AccountPopover = (props) => {
         }}
       >
         <Typography variant="overline">
-          Account
+          Perfil
         </Typography>
         <Typography
           color="text.secondary"

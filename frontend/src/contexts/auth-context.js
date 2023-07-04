@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useReducer, useRef } from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 
 const HANDLERS = {
   INITIALIZE: 'INITIALIZE',
@@ -128,31 +129,60 @@ export const AuthProvider = (props) => {
   };
 
   const signIn = async (email, password) => {
-    if (email !== 'demo@devias.io' || password !== 'Password123!') {
+    try {
+      const response = await axios.post('http://localhost:3001/api/users/authenticate', {
+        email,
+        password
+      });
+  
+      const { data } = response;
+  
+      if (data.message === 'Usuário autenticado com sucesso!') {
+        const user = {
+          id: data.user._id,
+          avatar: '/assets/avatars/avatar-blank.png',
+          name: data.user.name,
+          email: data.user.email
+        };
+  
+        dispatch({
+          type: HANDLERS.SIGN_IN,
+          payload: user
+        });
+  
+        try {
+          window.sessionStorage.setItem('authenticated', 'true');
+        } catch (err) {
+          console.error(err);
+        }
+      } else {
+        throw new Error(data.message);
+      }
+    } catch (error) {
+      if (error.response?.status === 404) {
+        throw new Error(error.response.data.message);
+      }
       throw new Error('Please check your email and password');
     }
-
-    try {
-      window.sessionStorage.setItem('authenticated', 'true');
-    } catch (err) {
-      console.error(err);
-    }
-
-    const user = {
-      id: '5e86809283e28b96d2d38537',
-      avatar: '/assets/avatars/avatar-anika-visser.png',
-      name: 'Anika Visser',
-      email: 'anika.visser@devias.io'
-    };
-
-    dispatch({
-      type: HANDLERS.SIGN_IN,
-      payload: user
-    });
   };
+    
 
-  const signUp = async (email, name, password) => {
-    throw new Error('Sign up is not implemented');
+  const signUp = async (name, email, password) => {
+    try {
+     await axios.post('http://localhost:3001/api/users', {
+        name,  
+        email,
+        password
+      });
+    } catch (error) {
+      if (error.response && error.response.status === 404) {
+        throw new Error('Erro ao criar usuário:', error.response.data.message);
+      } else if (error.response) {
+        throw new Error('Erro na resposta da API:', error.response);
+      } else {
+        throw new Error('Erro de requisição:', error);
+      }
+    }
   };
 
   const signOut = () => {
