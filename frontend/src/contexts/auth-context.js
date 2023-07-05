@@ -183,6 +183,19 @@ export const AuthProvider = (props) => {
     });
   };
 
+  const updateUser = (updatedUser) => {
+    dispatch({
+      type: HANDLERS.SIGN_IN,
+      payload: updatedUser
+    });
+  
+    try {
+      window.sessionStorage.setItem('user', JSON.stringify(updatedUser));
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -190,7 +203,8 @@ export const AuthProvider = (props) => {
         skip,
         signIn,
         signUp,
-        signOut
+        signOut,
+        updateUser
       }}
     >
       {children}

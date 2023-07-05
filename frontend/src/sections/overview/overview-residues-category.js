@@ -1,7 +1,5 @@
 import PropTypes from 'prop-types';
-import ComputerDesktopIcon from '@heroicons/react/24/solid/ComputerDesktopIcon';
-import DeviceTabletIcon from '@heroicons/react/24/solid/DeviceTabletIcon';
-import PhoneIcon from '@heroicons/react/24/solid/PhoneIcon';
+import ArchiveBoxIcon from '@heroicons/react/24/solid/ArchiveBoxIcon';
 import {
   Box,
   Card,
@@ -22,9 +20,10 @@ const useChartOptions = (labels) => {
       background: 'transparent'
     },
     colors: [
-      theme.palette.primary.main,
+      theme.palette.info.main,
+      theme.palette.error.main,
+      theme.palette.warning.main,
       theme.palette.success.main,
-      theme.palette.warning.main
     ],
     dataLabels: {
       enabled: false
@@ -63,30 +62,35 @@ const useChartOptions = (labels) => {
 };
 
 const iconMap = {
-  Desktop: (
-    <SvgIcon>
-      <ComputerDesktopIcon />
+  Papel: (
+    <SvgIcon color='info'>
+      <ArchiveBoxIcon />
     </SvgIcon>
   ),
-  Tablet: (
-    <SvgIcon>
-      <DeviceTabletIcon />
+  Plastico: (
+    <SvgIcon color='error'>
+      <ArchiveBoxIcon />
     </SvgIcon>
   ),
-  Phone: (
-    <SvgIcon>
-      <PhoneIcon />
+  Metal: (
+    <SvgIcon color='warning'>
+      <ArchiveBoxIcon />
     </SvgIcon>
-  )
+  ),
+  Vidro: (
+    <SvgIcon color='success'>
+      <ArchiveBoxIcon />
+    </SvgIcon>
+  ),
 };
 
-export const OverviewTraffic = (props) => {
+export const OverviewResiduesCategory = (props) => {
   const { chartSeries, labels, sx } = props;
   const chartOptions = useChartOptions(labels);
 
   return (
     <Card sx={sx}>
-      <CardHeader title="Traffic Source" />
+      <CardHeader title="Categoria dos Resíduos" />
       <CardContent>
         <Chart
           height={300}
@@ -136,7 +140,7 @@ export const OverviewTraffic = (props) => {
   );
 };
 
-OverviewTraffic.propTypes = {
+OverviewResiduesCategory.propTypes = {
   chartSeries: PropTypes.array.isRequired,
   labels: PropTypes.array.isRequired,
   sx: PropTypes.object

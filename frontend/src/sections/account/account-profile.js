@@ -1,20 +1,16 @@
 import {
   Avatar,
   Box,
-  Button,
   Card,
-  CardActions,
   CardContent,
-  Divider,
   Typography
 } from '@mui/material';
 
-const user = {
-  avatar: '/assets/avatars/avatar-anika-visser.png',
-  name: 'Anika Visser',
-};
+import { useAuth } from 'src/hooks/use-auth';
 
-export const AccountProfile = () => (
+export const AccountProfile = () => {
+  const { user } = useAuth();
+  return (
   <Card>
     <CardContent>
       <Box
@@ -25,7 +21,7 @@ export const AccountProfile = () => (
         }}
       >
         <Avatar
-          src={user.avatar}
+          src='/assets/avatars/avatar-blank.png'
           sx={{
             height: 80,
             mb: 2,
@@ -43,4 +39,5 @@ export const AccountProfile = () => (
     </CardContent>
  
   </Card>
-);
+  );
+};

@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
-import CurrencyDollarIcon from '@heroicons/react/24/solid/CurrencyDollarIcon';
+import MapPinIcon from '@heroicons/react/24/solid/MapPinIcon';
 import { Avatar, Card, CardContent, Stack, SvgIcon, Typography } from '@mui/material';
 
-export const OverviewTotalProfit = (props) => {
-  const { value, sx } = props;
+export const OverviewCollectionPoints = (props) => {
+  const { sx, value } = props;
 
   return (
     <Card sx={sx}>
@@ -11,7 +11,7 @@ export const OverviewTotalProfit = (props) => {
         <Stack
           alignItems="flex-start"
           direction="row"
-          justifyContent="space-between"
+          justifyContent="space-around"
           spacing={3}
         >
           <Stack spacing={1}>
@@ -19,7 +19,7 @@ export const OverviewTotalProfit = (props) => {
               color="text.secondary"
               variant="overline"
             >
-              Total Profit
+              PONTOS DE COLETA
             </Typography>
             <Typography variant="h4">
               {value}
@@ -27,22 +27,25 @@ export const OverviewTotalProfit = (props) => {
           </Stack>
           <Avatar
             sx={{
-              backgroundColor: 'primary.main',
+              backgroundColor: 'error.main',
               height: 56,
               width: 56
             }}
           >
             <SvgIcon>
-              <CurrencyDollarIcon />
+              <MapPinIcon />
             </SvgIcon>
           </Avatar>
         </Stack>
+       
       </CardContent>
     </Card>
   );
 };
 
-OverviewTotalProfit.propTypes = {
-  value: PropTypes.string,
-  sx: PropTypes.object
+OverviewCollectionPoints.prototypes = {
+  difference: PropTypes.number,
+  positive: PropTypes.bool,
+  sx: PropTypes.object,
+  value: PropTypes.string.isRequired
 };

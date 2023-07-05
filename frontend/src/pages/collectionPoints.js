@@ -96,18 +96,6 @@ const Page = () => (
               >
               </Stack>
             </Stack>
-            <div>
-              <Button
-                startIcon={(
-                  <SvgIcon fontSize="small">
-                    <PlusIcon />
-                  </SvgIcon>
-                )}
-                variant="contained"
-              >
-                Add
-              </Button>
-            </div>
           </Stack>
           
           <Grid
