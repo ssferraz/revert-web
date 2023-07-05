@@ -178,6 +178,11 @@ export const AuthProvider = (props) => {
   };
 
   const signOut = () => {
+    try {
+      window.sessionStorage.removeItem('user');
+    } catch (err) {
+      console.error(err);
+    }
     dispatch({
       type: HANDLERS.SIGN_OUT
     });
