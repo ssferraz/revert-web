@@ -2,10 +2,11 @@ import PropTypes from 'prop-types';
 
 import ClockIcon from '@heroicons/react/24/solid/ClockIcon';
 import { Box, Card, CardContent, Divider, Stack, SvgIcon, Typography } from '@mui/material';
+import { format } from 'date-fns';
 
 export const CompanyCard = (props) => {
   const { company } = props;
-
+  console.log(company);
   return (
     <Card
       sx={{
@@ -21,13 +22,13 @@ export const CompanyCard = (props) => {
           gutterBottom
           variant="h5"
         >
-          {company.title}
+          {company.name}
         </Typography>
         <Typography
           align="center"
           variant="body1"
         >
-          {company.description}
+          {company.address}
         </Typography>
       </CardContent>
       <Box sx={{ flexGrow: 1 }} />
@@ -55,7 +56,7 @@ export const CompanyCard = (props) => {
             display="inline"
             variant="body2"
           >
-            Updated 2hr ago
+            Criado em {format(new Date(company.createdAt), 'dd/MM/yyyy')}
           </Typography>
         </Stack>
        

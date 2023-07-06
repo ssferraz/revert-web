@@ -37,7 +37,7 @@ const Page = () => (
           >
             <OverviewCollectionPoints
               sx={{ height: '100%' }}
-              value="$24k"
+              value="2"
             />
           </Grid>
           <Grid
@@ -47,7 +47,7 @@ const Page = () => (
           >
             <OverviewTotalUsers
               sx={{ height: '100%' }}
-              value="1.6k"
+              value="3"
             />
           </Grid>
           <Grid
@@ -65,7 +65,7 @@ const Page = () => (
           <Grid
             xs={12}
             md={12}
-            lg={8}
+            lg={12}
           >
             <OverviewLatestOrders
               orders={[
@@ -133,17 +133,11 @@ const Page = () => (
               sx={{ height: '100%' }}
             />
           </Grid>
+       
           <Grid
             xs={12}
             md={6}
-            lg={4}
-          >
-        
-          </Grid>
-          <Grid
-            xs={12}
-            md={6}
-            lg={4}
+            lg={6}
           >
             <OverviewResiduesCategory
               chartSeries={[41, 15, 22, 22]}
@@ -154,7 +148,7 @@ const Page = () => (
           <Grid
             xs={12}
             md={6}
-            lg={4}
+            lg={6}
           >
             <OverviewLatestResidues
               products={[
