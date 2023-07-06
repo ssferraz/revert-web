@@ -1,4 +1,4 @@
-const { User: UserModel, User } = require("../models/User");
+const { User: UserModel} = require("../models/User");
 
 const userRepository = {
     create: async (user) => {
@@ -24,7 +24,7 @@ const userRepository = {
         return updatedUser;
     },
     authenticate: async (email, password) => {
-        const user = await User.findOne({
+        const user = await UserModel.findOne({
             email: email,
             password: password
         }).select('-password -__v');
