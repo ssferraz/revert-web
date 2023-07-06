@@ -7,7 +7,7 @@ const collectionPointSchema = new Schema({
         type: String,
         required: true
     },
-    endereco: {
+    address: {
         type: String,
         required: true
     },
