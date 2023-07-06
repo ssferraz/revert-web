@@ -4,12 +4,14 @@ const collectionOrderController = {
 
     create: async (req, res) => {
         try {
-            const category = {
-                name: req.body.name,
+            const collectionOrder = {
+                user: req.body.user,
+                date: req.body.date,
+                status: req.body.status
             };
 
-            const response = await collectionOrderRepository.create(category);
-            return res.status(201).json({ response, message: "Categoria criada com sucecsso!" });
+            const response = await collectionOrderRepository.create(collectionOrder);
+            return res.status(201).json({ response, message: "Pedido de coleta criado com sucecsso!" });
 
         } catch (error) {
             console.log(error);
@@ -18,8 +20,8 @@ const collectionOrderController = {
     },
     getAll: async (req, res) => {
         try {
-            const categories = await collectionOrderRepository.getAll();
-            return res.status(200).json(categories);
+            const collectionOrders = await collectionOrderRepository.getAll();
+            return res.status(200).json(collectionOrders);
 
         } catch (error) {
             console.log(error);
@@ -29,54 +31,56 @@ const collectionOrderController = {
     get: async (req, res) => {
         try {
             const id = req.params.id;
-            const category = await collectionOrderRepository.get(id);
+            const collectionOrder = await collectionOrderRepository.get(id);
 
-            if (!category) {
-                return res.status(404).json({ message: "Categoria não encontrada." });;
+            if (!collectionOrder) {
+                return res.status(404).json({ message: "Pedido de coleta não encontrado." });;
             }
 
-            return res.status(200).json(category);
+            return res.status(200).json(collectionOrder);
 
         } catch (error) {
             console.log(error);
             return res.status(500).json({ message: "Falha ao processar sua requisição." });
         }
     },
-    delete: async (categoryId, res) => {
+    delete: async (collectionOrderId, res) => {
         try {
-            const id = categoryId;
-            const category = await collectionOrderRepository.get(id);
+            const id = collectionOrderId;
+            const collectionOrder = await collectionOrderRepository.get(id);
 
-            if (!category) {
-                console.log(category);
-                return res.status(404).json({ message: "Categoria não encontrada." });
+            if (!collectionOrder) {
+                console.log(collectionOrder);
+                return res.status(404).json({ message: "Pedido de coleta não encontrado." });
             }
 
-            const deletedCategory = await collectionOrderRepository.delete(id);
+            const deletedCollectionOrder = await collectionOrderRepository.delete(id);
 
-            res.status(200).json({ deletedCategory, message: "Categoria removida com sucesso!"});
+            res.status(200).json({ deletedCollectionOrder, message: "Pedido de coleta removido com sucesso!"});
 
         } catch (error) {
             console.log(error);
             return res.status(500).json({ message: "Falha ao processar sua requisição." });
         }
     },
-    update: async (categoryId, req, res) => {
+    update: async (collectionOrderId, req, res) => {
         try {
-            const id = categoryId;
+            const id = collectionOrderId;
             
-            const category = {
-                name: req.body.name,
+            const collectionOrder = {
+                user: req.body.user,
+                date: req.body.date,
+                status: req.body.status
             };
 
-            const updatedCategory = await collectionOrderRepository.update(id, category);
+            const updatedCollectionOrder = await collectionOrderRepository.update(id, collectionOrder);
 
-            if (!updatedCategory) {
-                res.status(404).json({ message: "Categoria não encontrada." });
+            if (!updatedCollectionOrder) {
+                res.status(404).json({ message: "Pedido de coleta não encontrado." });
                 return;
             }
 
-            return res.status(200).json({ category, message: "Categoria atualizada com sucesso!" });
+            return res.status(200).json({ collectionOrder, message: "Pedido de coleta atualizado com sucesso!" });
         } catch (error) {
             console.log(error);
             return res.status(500).json({ message: "Falha ao processar sua requisição." });

@@ -4,12 +4,12 @@ const residueController = {
 
     create: async (req, res) => {
         try {
-            const category = {
+            const residue = {
                 name: req.body.name,
             };
 
-            const response = await categoryRepository.create(category);
-            return res.status(201).json({ response, message: "Categoria criada com sucecsso!" });
+            const response = await residueRepository.create(residue);
+            return res.status(201).json({ response, message: "Resíduo criado com sucecsso!" });
 
         } catch (error) {
             console.log(error);
@@ -18,8 +18,8 @@ const residueController = {
     },
     getAll: async (req, res) => {
         try {
-            const categories = await categoryRepository.getAll();
-            return res.status(200).json(categories);
+            const residues = await residueRepository.getAll();
+            return res.status(200).json(residues);
 
         } catch (error) {
             console.log(error);
@@ -29,54 +29,54 @@ const residueController = {
     get: async (req, res) => {
         try {
             const id = req.params.id;
-            const category = await categoryRepository.get(id);
+            const residue = await residueRepository.get(id);
 
-            if (!category) {
-                return res.status(404).json({ message: "Categoria não encontrada." });;
+            if (!residue) {
+                return res.status(404).json({ message: "Resíduo não encontrado." });;
             }
 
-            return res.status(200).json(category);
+            return res.status(200).json(residue);
 
         } catch (error) {
             console.log(error);
             return res.status(500).json({ message: "Falha ao processar sua requisição." });
         }
     },
-    delete: async (categoryId, res) => {
+    delete: async (residueId, res) => {
         try {
-            const id = categoryId;
-            const category = await categoryRepository.get(id);
+            const id = residueId;
+            const residue = await residueRepository.get(id);
 
-            if (!category) {
-                console.log(category);
-                return res.status(404).json({ message: "Categoria não encontrada." });
+            if (!residue) {
+                console.log(residue);
+                return res.status(404).json({ message: "Resíduo não encontrado." });
             }
 
-            const deletedCategory = await categoryRepository.delete(id);
+            const deletedResidue = await residueRepository.delete(id);
 
-            res.status(200).json({ deletedCategory, message: "Categoria removida com sucesso!"});
+            res.status(200).json({ deletedResidue, message: "Resíduo removido com sucesso!"});
 
         } catch (error) {
             console.log(error);
             return res.status(500).json({ message: "Falha ao processar sua requisição." });
         }
     },
-    update: async (categoryId, req, res) => {
+    update: async (residueId, req, res) => {
         try {
-            const id = categoryId;
+            const id = residueId;
             
-            const category = {
+            const residue = {
                 name: req.body.name,
             };
 
-            const updatedCategory = await categoryRepository.update(id, category);
+            const updatedResidue = await residueRepository.update(id, residue);
 
-            if (!updatedCategory) {
-                res.status(404).json({ message: "Categoria não encontrada." });
+            if (!updatedResidue) {
+                res.status(404).json({ message: "Resíduo não encontrado." });
                 return;
             }
 
-            return res.status(200).json({ category, message: "Categoria atualizada com sucesso!" });
+            return res.status(200).json({ residue, message: "Resíduo atualizado com sucesso!" });
         } catch (error) {
             console.log(error);
             return res.status(500).json({ message: "Falha ao processar sua requisição." });

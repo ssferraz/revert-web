@@ -78,7 +78,7 @@ const collectionPointController = {
                 return;
             }
 
-            return res.status(200).json({ user, message: "Ponto de coleta atualizado com sucesso!" });
+            return res.status(200).json({ updatedCollectionPoint, message: "Ponto de coleta atualizado com sucesso!" });
         } catch (error) {
             console.log(error);
             return res.status(500).json({ message: "Falha ao processar sua requisição." });
